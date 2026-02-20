@@ -1,0 +1,34 @@
+
+# General settings
+experiment_name: uamp_finetune_davis
+device: cuda:0
+seed: 42
+num_workers: 8
+save_dir: checkpoints/finetune
+
+# Dataset settings
+dataset: DAVIS
+dataset_root: datasets/DAVIS
+batch_size: 2
+num_frames: 8  # Number of frames per video clip
+image_size: 480  # Match DAVIS 480p
+
+# Model settings
+sam2_checkpoint: checkpoints/sam2_hiera_large.pt
+sam2_model_type: sam2_hiera_l
+freeze_sam2_backbone: true  # Freeze SAM2 encoder/decoder
+freeze_sam2_image_encoder: true
+freeze_sam2_mask_decoder: true
+
+# Optimization settings
+lr: 1e-4  # Only for UAMP layers
+weight_decay: 1e-5
+num_epochs: 50
+warmup_epochs: 5
+lr_scheduler: cosine  # Cosine annealing
+optimizer: adamw
+
+# Logging
+log_interval: 10  # Log every 10 batches
+val_interval: 5   # Validate every 5 epochs
+use_wandb: true   # Optional: for experiment tracking
